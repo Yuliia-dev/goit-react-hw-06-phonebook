@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { filterChange } from 'redux/contacts/contacts-actions';
+import { getFilter } from 'redux/contacts/selectors';
 import { LabelFilter, TextFilter, InputFilter } from './Filter.styled';
 
 export default function Filter() {
   const dispatch = useDispatch();
-  const value = useSelector(state => state.contacts.filter);
+  const value = useSelector(getFilter);
   return (
     <LabelFilter>
       <TextFilter>Find contact by name</TextFilter>

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContacts } from 'redux/contacts/contacts-actions';
+import { getContacts, getFilter } from 'redux/contacts/selectors';
 import {
   ContactsListStyle,
   ContactsItem,
@@ -9,8 +10,8 @@ import {
 
 export default function ContactsList() {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilter);
   const normalizeFilter = filter.toLowerCase();
   const visibleContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(normalizeFilter)
