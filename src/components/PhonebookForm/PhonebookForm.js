@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from 'redux/contacts/contacts-actions';
 import { nanoid } from 'nanoid';
+import Swal from 'sweetalert2';
+import { getContacts } from 'redux/contacts/selectors';
 import {
   FormContact,
   LabelFormContact,
@@ -13,12 +15,20 @@ import {
 export default function PhonebookForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const submitForm = e => {
     e.preventDefault();
     const id = nanoid();
-    dispatch(addContacts(id, name, number));
+    contacts.find(contact => contact.name.toLowerCase() === name)
+      ? Swal.fire({
+          icon: 'warning',
+          title: 'Oops...',
+          text: `The name ${name} is already in the list`,
+        })
+      : dispatch(addContacts(id, name, number));
+
     reset();
   };
 

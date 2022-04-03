@@ -1,20 +1,12 @@
 import { combineReducers, createReducer } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import Swal from 'sweetalert2';
 import { addContacts, deleteContacts, filterChange } from './contacts-actions';
 
 // Contacts Reduser
 
 const items = createReducer([], {
-  [addContacts]: (state, { payload }) =>
-    state.find(contact => contact.name.toLowerCase() === payload.name)
-      ? Swal.fire({
-          icon: 'warning',
-          title: 'Oops...',
-          text: `The name ${payload.name} is already in the list`,
-        })
-      : [...state, payload],
+  [addContacts]: (state, { payload }) => [...state, payload],
   [deleteContacts]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
 });
