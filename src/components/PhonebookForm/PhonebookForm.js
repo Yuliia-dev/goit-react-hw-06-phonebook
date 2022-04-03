@@ -25,7 +25,7 @@ export default function PhonebookForm() {
       ? Swal.fire({
           icon: 'warning',
           title: 'Oops...',
-          text: `The name ${name} is already in the list`,
+          text: `The name "${name}" is already in the list`,
         })
       : dispatch(addContacts(id, name, number));
 
